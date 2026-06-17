@@ -1,0 +1,702 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Жай бөлшектер | Интерактивный гайд</title>
+
+<style>
+/* ==========================
+   АКАДЕМИЧЕСКАЯ ТЕМА №5
+========================== */
+:root{
+    --primary:#23364d;
+    --accent:#27c6d9;
+    --paper:#ffffff;
+    --paper2:#f3f6f9;
+    --success:#56b870;
+    --danger:#e76b6b;
+    --text:#263238;
+    --shadow:0 8px 24px rgba(0,0,0,.08);
+    --radius:16px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI,Tahoma,sans-serif;
+    background:var(--paper2);
+    color:var(--text);
+    line-height:1.6;
+}
+
+header{
+    background:var(--primary);
+    color:white;
+    padding:24px;
+    text-align:center;
+}
+
+header h1{
+    margin-bottom:10px;
+}
+
+nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:white;
+    box-shadow:var(--shadow);
+    padding:12px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.nav__btn{
+    border:none;
+    padding:10px 16px;
+    border-radius:12px;
+    cursor:pointer;
+    background:var(--accent);
+    color:white;
+    font-weight:700;
+}
+
+.nav__btn:hover{
+    opacity:.9;
+}
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+section{
+    margin:30px 0;
+}
+
+.section-title{
+    color:var(--primary);
+    margin-bottom:15px;
+    border-left:6px solid var(--accent);
+    padding-left:12px;
+}
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:var(--radius);
+    padding:18px;
+    box-shadow:var(--shadow);
+}
+
+.tag{
+    display:inline-block;
+    background:var(--accent);
+    color:white;
+    padding:4px 10px;
+    border-radius:20px;
+    margin:3px;
+    font-size:.9rem;
+}
+
+.formula{
+    background:#eefcff;
+    border-left:5px solid var(--accent);
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+}
+
+.lab{
+    background:white;
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.controls{
+    display:grid;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+input[type=range]{
+    width:100%;
+    accent-color:var(--accent);
+}
+
+svg{
+    width:100%;
+    max-width:600px;
+    display:block;
+    margin:auto;
+}
+
+.example{
+    background:white;
+    padding:16px;
+    border-left:6px solid var(--accent);
+    margin-bottom:15px;
+    border-radius:12px;
+    box-shadow:var(--shadow);
+}
+
+.trainer-item{
+    background:white;
+    padding:16px;
+    margin-bottom:14px;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+}
+
+.trainer-item input{
+    width:220px;
+    padding:10px;
+    margin:10px 0;
+}
+
+.check-btn{
+    background:var(--accent);
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.feedback{
+    display:none;
+    margin-top:10px;
+    padding:10px;
+    border-radius:10px;
+}
+
+.success{
+    background:#e7f8ec;
+    color:#20753a;
+}
+
+.error{
+    background:#ffeaea;
+    color:#a22c2c;
+}
+
+aside{
+    background:#fff8e8;
+    border-left:6px solid orange;
+    padding:18px;
+    border-radius:12px;
+    box-shadow:var(--shadow);
+}
+
+.summary{
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:var(--shadow);
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#666;
+}
+
+.print-btn{
+    background:var(--success);
+}
+
+/* ======================
+   PRINT MODE
+====================== */
+@media print{
+
+    nav,
+    .check-btn,
+    input,
+    button,
+    .feedback,
+    .controls{
+        display:none !important;
+    }
+
+    body{
+        background:white;
+        color:black;
+    }
+
+    *{
+        box-shadow:none !important;
+        text-shadow:none !important;
+    }
+
+    header{
+        background:white;
+        color:black;
+        border-bottom:2px solid black;
+    }
+
+    .card,
+    .lab,
+    .trainer-item,
+    aside,
+    .summary{
+        border:1px solid #999;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1 data-i18n="title">Жай бөлшектер</h1>
+    <p data-i18n="subtitle">5-сынып математикасы бойынша интерактивті оқу құралы</p>
+</header>
+
+<nav>
+    <button class="nav__btn" onclick="setLanguage('ru')">🇷🇺 Русский</button>
+    <button class="nav__btn" onclick="setLanguage('kk')">🇰🇿 Қазақша</button>
+    <button class="nav__btn print-btn" onclick="window.print()" data-i18n="pdf">
+        Скачать PDF
+    </button>
+</nav>
+
+<main>
+
+<section>
+    <h2 class="section-title" data-i18n="introTitle">Введение</h2>
+
+    <article class="card">
+        <p data-i18n="introText"></p>
+
+        <div style="margin-top:12px;">
+            <span class="tag" data-i18n="tag1"></span>
+            <span class="tag" data-i18n="tag2"></span>
+            <span class="tag" data-i18n="tag3"></span>
+            <span class="tag" data-i18n="tag4"></span>
+        </div>
+    </article>
+</section>
+
+<section>
+    <h2 class="section-title" data-i18n="theoryTitle">Теория</h2>
+
+    <div class="card-grid">
+
+        <article class="card">
+            <h3 data-i18n="card1Title"></h3>
+            <p data-i18n="card1Text"></p>
+
+            <div class="formula">
+                <math>
+                    <mfrac>
+                        <mi>a</mi>
+                        <mi>b</mi>
+                    </mfrac>
+                </math>
+            </div>
+        </article>
+
+        <article class="card">
+            <h3 data-i18n="card2Title"></h3>
+            <p data-i18n="card2Text"></p>
+
+            <div class="formula">
+                <math>
+                    <mfrac>
+                        <mn>3</mn>
+                        <mn>5</mn>
+                    </mfrac>
+                </math>
+                =
+                <span data-i18n="fractionExample"></span>
+            </div>
+        </article>
+
+        <article class="card">
+            <h3 data-i18n="card3Title"></h3>
+            <p data-i18n="card3Text"></p>
+
+            <div class="formula">
+                <span data-i18n="scheme"></span>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title" data-i18n="labTitle"></h2>
+
+    <div class="lab">
+
+        <div class="controls">
+            <label>
+                <span data-i18n="sliderLabel"></span>
+                <strong id="fractionValue">4</strong>
+            </label>
+
+            <input
+                type="range"
+                min="1"
+                max="12"
+                value="4"
+                id="partsSlider">
+        </div>
+
+        <svg id="fractionSvg" viewBox="0 0 300 300"></svg>
+
+        <p style="text-align:center;margin-top:12px;" id="fractionText"></p>
+
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title" data-i18n="examplesTitle"></h2>
+
+    <div class="example">
+        <strong data-i18n="ex1Title"></strong>
+        <p data-i18n="ex1Text"></p>
+        <ins>1/2</ins>
+    </div>
+
+    <div class="example">
+        <strong data-i18n="ex2Title"></strong>
+        <p data-i18n="ex2Text"></p>
+        <ins>3/4</ins>
+    </div>
+
+    <div class="example">
+        <strong data-i18n="ex3Title"></strong>
+        <p data-i18n="ex3Text"></p>
+        <ins>5/8</ins>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title" data-i18n="trainerTitle"></h2>
+
+    <div id="trainer"></div>
+</section>
+
+<section>
+    <h2 class="section-title" data-i18n="tipsTitle"></h2>
+
+    <aside>
+        <ul>
+            <li data-i18n="tip1"></li>
+            <li data-i18n="tip2"></li>
+            <li data-i18n="tip3"></li>
+            <li data-i18n="tip4"></li>
+        </ul>
+    </aside>
+</section>
+
+<section>
+    <h2 class="section-title" data-i18n="summaryTitle"></h2>
+
+    <div class="summary">
+        <ul>
+            <li data-i18n="sum1"></li>
+            <li data-i18n="sum2"></li>
+            <li data-i18n="sum3"></li>
+            <li data-i18n="sum4"></li>
+        </ul>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    © Interactive Math Guide
+</footer>
+
+<script>
+/* ==========================================
+   TRANSLATIONS
+========================================== */
+const translations = {
+
+ru:{
+title:"Обыкновенные дроби",
+subtitle:"Интерактивный учебный гид по математике для 5 класса",
+pdf:"Скачать PDF",
+
+introTitle:"Введение",
+introText:"Дроби встречаются каждый день: когда делят пиццу, шоколад, время, расстояние или деньги. Понимание дробей помогает решать реальные жизненные задачи.",
+tag1:"Пицца",
+tag2:"Деньги",
+tag3:"Время",
+tag4:"Измерения",
+
+theoryTitle:"Объяснение темы",
+
+card1Title:"Что такое дробь?",
+card1Text:"Дробь показывает часть целого объекта.",
+
+card2Title:"Числитель и знаменатель",
+card2Text:"Числитель показывает количество взятых частей, знаменатель — на сколько частей разделено целое.",
+
+card3Title:"Как читать дробь?",
+card3Text:"Сначала читают числитель, затем знаменатель.",
+scheme:"Числитель ⇄ Дробная черта ⇄ Знаменатель",
+
+fractionExample:"3 части из 5",
+
+labTitle:"Лаборатория дробей",
+sliderLabel:"Количество частей круга:",
+
+examplesTitle:"Разбор примеров",
+ex1Title:"Пример 1",
+ex1Text:"Половина яблока — это одна вторая.",
+ex2Title:"Пример 2",
+ex2Text:"Из четырёх одинаковых частей взяли три.",
+ex3Title:"Пример 3",
+ex3Text:"Из восьми частей закрашены пять.",
+
+trainerTitle:"Интерактивный тренажёр",
+
+tipsTitle:"Ловушки и лайфхаки",
+tip1:"Не путай числитель и знаменатель.",
+tip2:"Знаменатель не может быть равен нулю.",
+tip3:"Все части должны быть равными.",
+tip4:"Сначала смотри на знаменатель.",
+
+summaryTitle:"Итоги",
+sum1:"Дробь показывает часть целого.",
+sum2:"Числитель находится сверху.",
+sum3:"Знаменатель находится снизу.",
+sum4:"Дроби используются в жизни постоянно."
+},
+
+kk:{
+title:"Жай бөлшектер",
+subtitle:"5-сынып математикасы бойынша интерактивті оқу құралы",
+pdf:"PDF жүктеу",
+
+introTitle:"Кіріспе",
+introText:"Бөлшектер күнделікті өмірде кездеседі: пицца бөлу, уақытты есептеу, қашықтық өлшеу және ақша бөлу кезінде. Бөлшектерді түсіну өмірлік есептерді шешуге көмектеседі.",
+tag1:"Пицца",
+tag2:"Ақша",
+tag3:"Уақыт",
+tag4:"Өлшеу",
+
+theoryTitle:"Теория",
+
+card1Title:"Бөлшек деген не?",
+card1Text:"Бөлшек бүтіннің бір бөлігін көрсетеді.",
+
+card2Title:"Алымы мен бөлімі",
+card2Text:"Алым алынған бөліктер санын, бөлім бүтіннің неше бөлікке бөлінгенін көрсетеді.",
+
+card3Title:"Бөлшекті оқу",
+card3Text:"Алдымен алымы, содан кейін бөлімі оқылады.",
+scheme:"Алым ⇄ Бөлшек сызығы ⇄ Бөлім",
+
+fractionExample:"5 бөліктің 3 бөлігі",
+
+labTitle:"Бөлшектер зертханасы",
+sliderLabel:"Шеңбер бөліктерінің саны:",
+
+examplesTitle:"Мысалдарды талдау",
+ex1Title:"Мысал 1",
+ex1Text:"Алманың жартысы — екіден бір бөлік.",
+ex2Title:"Мысал 2",
+ex2Text:"Төрт бөліктің үшеуі алынған.",
+ex3Title:"Мысал 3",
+ex3Text:"Сегіз бөліктің бесеуі боялған.",
+
+trainerTitle:"Интерактивті тренажёр",
+
+tipsTitle:"Маңызды ескертулер",
+tip1:"Алым мен бөлімді шатастырма.",
+tip2:"Бөлім нөлге тең болмайды.",
+tip3:"Барлық бөліктер тең болуы керек.",
+tip4:"Алдымен бөлімге назар аудар.",
+
+summaryTitle:"Қорытынды",
+sum1:"Бөлшек бүтіннің бөлігін көрсетеді.",
+sum2:"Алым жоғарыда орналасады.",
+sum3:"Бөлім төменде орналасады.",
+sum4:"Бөлшектер өмірде жиі қолданылады."
+}
+};
+
+let currentLang='kk';
+
+function setLanguage(lang){
+    currentLang=lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key=el.dataset.i18n;
+        if(translations[lang][key]){
+            el.innerHTML=translations[lang][key];
+        }
+    });
+
+    renderTrainer();
+    updateFractionText();
+}
+
+/* ==========================================
+   FRACTION SVG VISUALIZATION
+========================================== */
+const svg=document.getElementById("fractionSvg");
+const slider=document.getElementById("partsSlider");
+
+function drawFraction(parts){
+
+    document.getElementById("fractionValue").textContent=parts;
+
+    svg.innerHTML='';
+
+    const cx=150;
+    const cy=150;
+    const r=120;
+
+    for(let i=0;i<parts;i++){
+
+        const start=(i/parts)*2*Math.PI;
+        const end=((i+1)/parts)*2*Math.PI;
+
+        const x1=cx+r*Math.cos(start);
+        const y1=cy+r*Math.sin(start);
+
+        const x2=cx+r*Math.cos(end);
+        const y2=cy+r*Math.sin(end);
+
+        const large=end-start>Math.PI?1:0;
+
+        const path=document.createElementNS("http://www.w3.org/2000/svg","path");
+
+        path.setAttribute("d",
+        `M ${cx} ${cy}
+         L ${x1} ${y1}
+         A ${r} ${r} 0 ${large} 1 ${x2} ${y2}
+         Z`);
+
+        path.setAttribute("fill", i===0 ? "#27c6d9":"#dfeef2");
+        path.setAttribute("stroke","#23364d");
+
+        svg.appendChild(path);
+    }
+
+    updateFractionText();
+}
+
+function updateFractionText(){
+
+    const p=slider.value;
+
+    document.getElementById("fractionText").innerHTML=
+    currentLang==="kk"
+    ? `Көк бөлік: <strong>1/${p}</strong>`
+    : `Закрашенная часть: <strong>1/${p}</strong>`;
+}
+
+slider.addEventListener("input",()=>{
+    drawFraction(slider.value);
+});
+
+drawFraction(4);
+
+/* ==========================================
+   TRAINER
+========================================== */
+const tasks = [
+["1/2 ?","1/2"],
+["2/3 ?","2/3"],
+["3/4 ?","3/4"],
+["4/5 ?","4/5"],
+["5/6 ?","5/6"],
+["1/3 ?","1/3"],
+["7/8 ?","7/8"],
+["2/5 ?","2/5"],
+["9/10 ?","9/10"],
+["3/8 ?","3/8"]
+];
+
+function renderTrainer(){
+
+    const container=document.getElementById("trainer");
+    container.innerHTML="";
+
+    tasks.forEach((t,index)=>{
+
+        const div=document.createElement("div");
+        div.className="trainer-item";
+
+        div.innerHTML=`
+            <p>${index+1}. ${currentLang==="kk"
+            ? "Бөлшекті енгіз:"
+            : "Введите дробь:"}
+            <strong> ${t[0]}</strong></p>
+
+            <input type="text" id="ans${index}">
+            <button class="check-btn"
+            onclick="checkAnswer(${index})">
+            ${currentLang==="kk" ? "Тексеру":"Проверить"}
+            </button>
+
+            <div class="feedback" id="fb${index}"></div>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+function normalize(v){
+    return v.replace(/\s+/g,'').toLowerCase();
+}
+
+function checkAnswer(index){
+
+    const input=document.getElementById("ans"+index).value;
+    const fb=document.getElementById("fb"+index);
+
+    const correct=tasks[index][1];
+
+    fb.style.display="block";
+
+    if(normalize(input)===normalize(correct)){
+
+        fb.className="feedback success";
+
+        fb.textContent=
+        currentLang==="kk"
+        ? "Дұрыс жауап!"
+        : "Правильно!";
+    }
+    else{
+
+        fb.className="feedback error";
+
+        fb.textContent=
+        currentLang==="kk"
+        ? "Қате. Қайта көріңіз."
+        : "Ошибка. Попробуйте ещё раз.";
+    }
+}
+
+renderTrainer();
+setLanguage('kk');
+</script>
+
+</body>
+</html>
+```
